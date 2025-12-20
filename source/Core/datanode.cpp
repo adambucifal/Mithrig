@@ -12,17 +12,17 @@
 #include "strings.h"
 
 
-namespace Mithrig::DataNode {
-	
+namespace Mithrig::DataNode 
+{
+
 	MObject create(const MString& name, const MString& type) 
 	{
 		MFnDependencyNode fn;
 		MObject datanode = fn.create("network");
 
-
 		const MString unique_name = Names::create(
-			name + Config::kDataNodeAffix,
-			name + "_" + Config::kNamingIncrement + "_" + Config::kDataNodeAffix
+			name + "_" + Config::kDataNodeAffix,
+			name + "_" + Config::kNamingIncrementString + "_" + Config::kDataNodeAffix
 		);
 
 		fn.setName(unique_name);
@@ -56,28 +56,33 @@ namespace Mithrig::DataNode {
 		CHECK_MSTATUS_AND_RETURN(status, nodes);
 
 		if (attr_plug.isArray()) {
-			for (unsigned int index = 0; index < attr_plug.numElements(); index++) {
+			for (unsigned int index = 0; index < attr_plug.numElements(); index++) 
+			{
 				MPlug plug = attr_plug.elementByLogicalIndex(index, &status);
 
-				if (status != MS::kSuccess || plug.isNull()) {
+				if (status != MS::kSuccess || plug.isNull())
+				{
 					continue;
 				}
 
 				MPlugArray plug_connections;
 				plug.connectedTo(plug_connections, true, true, &status);
 
-				for (const MPlug& plug_connection : plug_connections) {
+				for (const MPlug& plug_connection : plug_connections) 
+				{
 					nodes.append(plug_connection.node());
 				}
 			}
 		}
-		else {
+		else 
+		{
 			MPlugArray plug_connections;
 			attr_plug.connectedTo(plug_connections, true, true, &status);
 			CHECK_MSTATUS_AND_RETURN(status, nodes);
 
 			nodes.setLength(plug_connections.length());
-			for (unsigned int index = 0; index < plug_connections.length(); index++) {
+			for (unsigned int index = 0; index < plug_connections.length(); index++) 
+			{
 				nodes.set(plug_connections[index].node(), index);
 			}
 		}
@@ -93,10 +98,12 @@ namespace Mithrig::DataNode {
 	) {
 		MObjectArray connections = get_links(obj, attr_name, return_status);
 		
-		if (connections.length() > index) {
+		if (connections.length() > index) 
+		{
 			return connections[index];
 		}
-		else {
+		else 
+		{
 			return MObject::kNullObj;
 		}
 	}
@@ -115,7 +122,9 @@ namespace Mithrig::DataNode {
 
 		MDGModifier dg_mod_a;
 		MDGModifier dg_mod_b;
-		if (!dg_mod) {
+
+		if (!dg_mod) 
+		{
 			dg_mod = &dg_mod_a;
 		}
 
@@ -139,7 +148,8 @@ namespace Mithrig::DataNode {
 		status = dg_mod->connect(src_plug, trg_plug);
 		CHECK_MSTATUS_AND_RETURN_IT(status);
 
-		if (dg_mod == &dg_mod_a) {
+		if (dg_mod == &dg_mod_a) 
+		{
 			return dg_mod->doIt();
 		}
 
@@ -162,7 +172,8 @@ namespace Mithrig::DataNode {
 
 		MDGModifier dg_mod_a;
 		MDGModifier dg_mod_b;
-		if (!dg_mod) {
+		if (!dg_mod) 
+		{
 			dg_mod = &dg_mod_a;
 		}
 
@@ -177,7 +188,8 @@ namespace Mithrig::DataNode {
 		MPlug trg_plug = trg_fn.findPlug(attr_name, true, &status);
 		CHECK_MSTATUS_AND_RETURN_IT(status);
 
-		for (unsigned int index = 0; index < srcs.length(); index++) {
+		for (unsigned int index = 0; index < srcs.length(); index++) 
+		{
 			MFnDependencyNode src_fn(srcs[index], &status);
 			CHECK_MSTATUS_AND_RETURN_IT(status);
 
@@ -188,10 +200,12 @@ namespace Mithrig::DataNode {
 			CHECK_MSTATUS_AND_RETURN_IT(status);
 		}
 
-		if (dg_mod == &dg_mod_a) {
+		if (dg_mod == &dg_mod_a) 
+		{
 			return dg_mod->doIt();
 		}
 
 		return MS::kSuccess;
 	}
+
 }

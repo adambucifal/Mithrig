@@ -3,8 +3,9 @@
 #include <maya/MString.h>
 
 
-namespace Mithrig::Utilities::Dg {
+namespace Mithrig::Dg {
 
 	bool object_exists(const MString& name);
+	bool object_exists(const MObject& obj);
 
 }

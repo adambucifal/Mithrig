@@ -6,7 +6,8 @@
 
 namespace Mithrig {
 
-	class ComponentTemplate {
+	class ComponentTemplate 
+	{
 
 	public:
 		ComponentTemplate() = default;
@@ -18,10 +19,11 @@ namespace Mithrig {
 		const MObject& datanode() const { return m_datanode; }
 		MObject& datanode() { return m_datanode; }
 
-		static ComponentTemplate reinit(const MObject& node);
+		static ComponentTemplate reinit(const MObject& datanode);
 
 	private:
 		MString m_name;
 		MObject m_datanode;
+
 	};
 }

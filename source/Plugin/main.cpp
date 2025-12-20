@@ -1,5 +1,4 @@
 #include "config.h"
-
 #include "cmd_dataNode.h"
 
 #include <maya/MFnPlugin.h>
@@ -7,25 +6,26 @@
 #include <maya/MGlobal.h>
 #include <maya/MString.h>
 
+using namespace Mithrig::Commands;
 
-MStatus initializePlugin(MObject obj) {
+const MString kDataNodeCommand = "mithrigDataNode";
 
-	using namespace Mithrig;
-	using namespace Mithrig::Commands;
-	
 
+MStatus initializePlugin(MObject obj) 
+{
 	MFnPlugin plugin(obj);
 
-	MString plugin_name(Config::kName);
-
-	plugin.registerCommand(plugin_name + "DataNode", CmdDataNode::creator, CmdDataNode::syntax);
-
+	plugin.registerCommand(kDataNodeCommand, CmdDataNode::creator, CmdDataNode::syntax);
 
 	return MS::kSuccess;
 }
 
 
-MStatus uninitializePlugin(MObject obj) {
+MStatus uninitializePlugin(MObject obj) 
+{
+	MFnPlugin plugin(obj);
+
+	plugin.deregisterCommand(kDataNodeCommand);
 
 	return MS::kSuccess;
 }

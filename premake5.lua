@@ -191,6 +191,7 @@ project "Plugin"
     includedirs {
         MAYA_INCLUDE,
         EXTERNAL_INCLUDE,
+		"source/Utilities",
         "source/Core",
 		"source/Commands"
     }
@@ -205,6 +206,7 @@ project "Plugin"
         "OpenMayaUI",
         "Qt6Core",
         "Foundation",
+		"Utilities",
         "Core",
 		"Commands"
     }

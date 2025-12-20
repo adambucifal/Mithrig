@@ -3,8 +3,13 @@
 #include <maya/MSelectionList.h>
 
 
-bool Mithrig::Utilities::Dg::object_exists(const MString& name) 
+bool Mithrig::Dg::object_exists(const MString& name) 
 {
-	MSelectionList sl;
-	return sl.add(name) == MS::kSuccess;
+	return MSelectionList().add(name) == MS::kSuccess;
+}
+
+
+bool Mithrig::Dg::object_exists(const MObject& obj)
+{
+	return !obj.isNull();
 }

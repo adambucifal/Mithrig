@@ -4,7 +4,8 @@
 #include <maya/MObject.h>
 
 
-namespace Mithrig::DataNode {
+namespace Mithrig::DataNode 
+{
 
 	MObject create(const MString& name, const MString& type = "");
 
@@ -34,4 +35,5 @@ namespace Mithrig::DataNode {
 		const MString& attr_name,
 		MDGModifier* dg_mod = nullptr
 	);
+
 }

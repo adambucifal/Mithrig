@@ -3,25 +3,33 @@
 #include "config.h"
 #include "strings.h"
 
+#include <maya/MGlobal.h>
+
 
 MString Mithrig::Names::create(const MString& single_name, const MString& multi_name) 
 {
-	if (!Utilities::Dg::object_exists(single_name))
+	MString single_short_name = Strings::short_name(single_name);
+	MString multi_short_name = Strings::short_name(multi_name);
+
+	if (!Dg::object_exists(single_short_name))
 	{
-		return single_name;
+		return single_short_name;
 	}
 
-	const int padding = Utilities::Strings::sequential_count(multi_name, Config::kNamingIncrementChar);
+	int pad_by = Strings::sequential_count(multi_name, Config::kNamingIncrementChar);
 
 	int index = 1;
-	MString name = multi_name;
+	MString name;
 
 	while (true)
 	{
-		MString increment = Utilities::Strings::pad(index, padding);
-		name.substitute(Config::kNamingIncrement, increment);
-
-		if (!Utilities::Dg::object_exists(name)) {
+		MString padding = Strings::pad(index, pad_by);
+		
+		name = multi_short_name;
+		name.substitute(Config::kNamingIncrement, padding);
+		
+		if (!Dg::object_exists(name)) 
+		{
 			break;
 		}
 
@@ -30,4 +38,3 @@ MString Mithrig::Names::create(const MString& single_name, const MString& multi_
 
 	return name;
 }
-
