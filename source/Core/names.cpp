@@ -38,3 +38,12 @@ MString Mithrig::Names::create(const MString& single_name, const MString& multi_
 
 	return name;
 }
+
+
+MString Mithrig::Names::create_standard(const MString& name, const MString& affix_str) 
+{
+	return create(
+		name + "_" + affix_str, 
+		name + "_" + Config::kNamingIncrementString + "_" + affix_str
+	);
+}

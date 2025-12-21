@@ -6,7 +6,6 @@
 #include <maya/MGlobal.h>
 #include <maya/MString.h>
 
-using namespace Mithrig::Commands;
 
 const MString kDataNodeCommand = "mithrigDataNode";
 
@@ -15,7 +14,7 @@ MStatus initializePlugin(MObject obj)
 {
 	MFnPlugin plugin(obj);
 
-	plugin.registerCommand(kDataNodeCommand, CmdDataNode::creator, CmdDataNode::syntax);
+	plugin.registerCommand(kDataNodeCommand, Mithrig::DataNodeCommand::creator, Mithrig::DataNodeCommand::syntax);
 
 	return MS::kSuccess;
 }

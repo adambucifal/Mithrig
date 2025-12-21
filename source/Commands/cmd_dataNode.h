@@ -4,13 +4,14 @@
 #include <maya/MObject.h>
 
 
-namespace Mithrig::Commands 
+namespace Mithrig 
 {
-	class CmdDataNode : public MPxCommand 
-	{
-	public:
 
-		static void* creator() { return new CmdDataNode; }
+	class DataNodeCommand : public MPxCommand 
+	{
+
+	public:
+		static void* creator() { return new DataNodeCommand; }
 		static MSyntax syntax();
 
 		MStatus doIt(const MArgList& args) override;
@@ -20,14 +21,13 @@ namespace Mithrig::Commands
 		bool hasSyntax() const override { return true; }
 
 	private:
-
 		MStatus parse_args(const MArgList& args);
 	
 	private:
 		MObject m_node;
-		bool m_node_created = false;
-
 		MString m_name;
 		MString m_type;
+
 	};
+
 }

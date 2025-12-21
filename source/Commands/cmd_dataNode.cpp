@@ -10,34 +10,28 @@
 #include <maya/MDGModifier.h>
 
 
-MStatus Mithrig::Commands::CmdDataNode::doIt(const MArgList& args) 
+MStatus Mithrig::DataNodeCommand::doIt(const MArgList& args) 
 {
 	CHECK_MSTATUS_AND_RETURN_IT(parse_args(args));
+
 	return redoIt();
 }
 
 
-MStatus Mithrig::Commands::CmdDataNode::undoIt() 
+MStatus Mithrig::DataNodeCommand::undoIt() 
 {
-	if (m_node_created)
-	{
-		MDGModifier dgmod;
-		dgmod.deleteNode(m_node);
+	MDGModifier dgmod;
+	dgmod.deleteNode(m_node);
 
-		return dgmod.doIt();
-	}
-
-	return MS::kSuccess;
+	return dgmod.doIt();
 }
 
 
-MStatus Mithrig::Commands::CmdDataNode::redoIt() 
+MStatus Mithrig::DataNodeCommand::redoIt() 
 {
-
 	MStatus status;
 
 	m_node = Mithrig::DataNode::create(m_name, m_type);
-	m_node_created = true;
 
 	MFnDependencyNode dep_fn(m_node, &status);
 	CHECK_MSTATUS_AND_RETURN_IT(status);
@@ -48,7 +42,7 @@ MStatus Mithrig::Commands::CmdDataNode::redoIt()
 }
 
 
-MSyntax Mithrig::Commands::CmdDataNode::syntax() 
+MSyntax Mithrig::DataNodeCommand::syntax() 
 {
 	MSyntax syntax;
 
@@ -59,7 +53,7 @@ MSyntax Mithrig::Commands::CmdDataNode::syntax()
 }
 
 
-MStatus Mithrig::Commands::CmdDataNode::parse_args(const MArgList& args) 
+MStatus Mithrig::DataNodeCommand::parse_args(const MArgList& args) 
 {
 	MArgParser parsed(syntax(), args);
 

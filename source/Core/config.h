@@ -20,6 +20,9 @@ namespace Mithrig::Config
 	static constexpr const char kFlagTypeShort[] = "t";
 	static constexpr const char kFlagTypeLong[] = "type";
 
+	static constexpr const char kFlagLinkShort[] = "l";
+	static constexpr const char kFlagLinkLong[] = "link";
+
 	// Naming
 	constexpr const char kNamingIncrementChar = '#';
 	constexpr const char kNamingIncrement[] = "###";

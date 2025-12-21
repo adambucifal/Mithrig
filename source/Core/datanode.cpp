@@ -20,10 +20,7 @@ namespace Mithrig::DataNode
 		MFnDependencyNode fn;
 		MObject datanode = fn.create("network");
 
-		const MString unique_name = Names::create(
-			name + "_" + Config::kDataNodeAffix,
-			name + "_" + Config::kNamingIncrementString + "_" + Config::kDataNodeAffix
-		);
+		const MString unique_name = Names::create_standard(name, Config::kDataNodeAffix);
 
 		fn.setName(unique_name);
 
