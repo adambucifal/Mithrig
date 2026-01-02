@@ -27,15 +27,13 @@ namespace Mithrig
 
 		bool is_created() const { return m_created; }
 
+		MStatus link(const MObject& node, const MString& attr, MDGModifier* dg_mod = nullptr) const;
+		MObject get_link(const MString& attr, unsigned int index) const;
+		MObjectArray get_links(const MString& attr) const;
+
 	protected:
 		MObject m_datanode;
 		nlohmann::json m_params;
-
-	protected:
-		MStatus link(const MObject& node, const MString& attr, MDGModifier* dg_mod = nullptr);
-
-		MObject get_link(const MString& attr, unsigned int index);
-		MObjectArray get_links(const MString& attr);
 
 	private:
 		bool m_created = false;
@@ -46,11 +44,11 @@ namespace Mithrig
 	class Component
 	{
 	public:
-		Component();
+		Component(const MString& name) : m_name(name) {}
 		~Component() = default;
 
-		MStatus add(const System& system);
-		MStatus create();
+	private:
+		MString m_name;
 
 	};
 }

@@ -29,6 +29,7 @@ namespace Mithrig::Config
 	const MString kNamingIncrementString = kNamingIncrement;
 	
 	// DataNode
+	constexpr const char kDataNodeType[] = "network";
 	constexpr const char kDataNodeAffix[] = "datanode";
 	constexpr const char kDataNodeAttributeType[] = "type";
 

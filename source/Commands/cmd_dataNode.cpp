@@ -9,12 +9,6 @@
 #include <maya/MGlobal.h>
 #include <maya/MDGModifier.h>
 
-#include <maya/MFnIkJoint.h>
-
-#include "temp_ikchain.h"
-
-#include "serialization.h"
-
 
 MStatus Mithrig::DataNodeCommand::doIt(const MArgList& args) 
 {
@@ -35,25 +29,14 @@ MStatus Mithrig::DataNodeCommand::undoIt()
 
 MStatus Mithrig::DataNodeCommand::redoIt() 
 {
-	//MStatus status;
-
-	//m_node = Mithrig::DataNode::create(m_name, m_type);
-
-	//MFnDependencyNode dep_fn(m_node, &status);
-	//CHECK_MSTATUS_AND_RETURN_IT(status);
-
-	//setResult(dep_fn.name());
-
 	MStatus status;
 
-	nlohmann::json params;
+	m_node = Mithrig::DataNode::create(m_name, m_type);
 
-	MFnIkJoint fn;
+	MFnDependencyNode dep_fn(m_node, &status);
+	CHECK_MSTATUS_AND_RETURN_IT(status);
 
-	params["start_joint"] = Serialize::obj(fn.create());
-	params["end_joint"] = Serialize::obj(fn.create());
-
-	IkChain ikchain("what", params);
+	setResult(dep_fn.name());
 
 	return status;
 }
